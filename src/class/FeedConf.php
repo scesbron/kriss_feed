@@ -56,6 +56,12 @@ class FeedConf
     public $maxUpdate = 60;
 
     /**
+     * Interval in seconds for automatic refresh of the page.
+     * This is useful when there is a cron job that periodically fetch feeds
+     */
+    public $autoRefreshInterval = 0;
+
+    /**
      * Order ('newerFirst' or 'olderFirst')
      */
     public $order = 'newerFirst';
@@ -561,6 +567,16 @@ class FeedConf
     }
 
     /**
+     * autoRefreshInterval setter
+     *
+     * @param string $val New autoRefreshInterval
+     */
+    public function setAutoRefreshInterval($val)
+    {
+        $this->autoRefreshInterval = $val;
+    }
+
+    /**
      * MaxItems setter
      *
      * @param string $max New maxItems
@@ -712,7 +728,7 @@ class FeedConf
     public function write()
     {
         $data = array('login', 'hash', 'salt', 'title', 'redirector', 'shaarli',
-                      'byPage', 'order', 'maxUpdate', 'public', 'filter',
+                      'byPage', 'order', 'maxUpdate', 'autoRefreshInterval', 'public', 'filter',
                       'maxItems', 'locale', 'autoreadItem', 'autoreadPage',
                       'autohide', 'listFeeds', 'view', 'autoUpdate', 'menuView',
                       'menuListFeeds', 'menuFilter', 'menuOrder', 'menuUpdate',

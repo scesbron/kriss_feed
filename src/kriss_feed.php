@@ -78,6 +78,7 @@ $pb->assign('autoreadItem', $kfc->autoreadItem);
 $pb->assign('autoreadPage', $kfc->autoreadPage);
 $pb->assign('autohide', $kfc->autohide);
 $pb->assign('autoupdate', $kfc->autoUpdate);
+$pb->assign('autorefreshinterval', $kfc->autoRefreshInterval);
 $pb->assign('version', FEED_VERSION);
 $pb->assign('kfurl', MyTool::getUrl());
 
@@ -245,6 +246,7 @@ if (isset($_GET['login'])) {
         $pb->assign('kfclocale', htmlspecialchars($kfc->locale));
         $pb->assign('kfcmaxitems', htmlspecialchars($kfc->maxItems));
         $pb->assign('kfcmaxupdate', htmlspecialchars($kfc->maxUpdate));
+        $pb->assign('kfcautorefreshinterval', htmlspecialchars($kfc->autoRefreshInterval));
         $pb->assign('kfcpublic', (int) $kfc->public);
         $pb->assign('kfccron', sha1($kfc->salt.$kfc->hash));
         $pb->assign('kfcautoreaditem', (int) $kfc->autoreadItem);

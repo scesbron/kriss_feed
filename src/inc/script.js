@@ -14,12 +14,14 @@
       currentPage = 1, // data-current-page
       currentNbItems = 0, // data-nb-items
       autoupdate = false, // data-autoupdate
+      autoRefreshInterval = 0, //data-auto-refresh-interval
       status = '',
       listUpdateFeeds = [],
       listItemsHash = [],
       currentItemHash = '',
       currentUnread = 0,
       title = '',
+      refreshTimeout,
       cache = {};
 
   /**
@@ -1212,6 +1214,7 @@
         }
       });
     }
+    initAutoRefresh();
   }
 
   function checkKey(e) {
@@ -1263,6 +1266,7 @@
         break;
       }
     // e.ctrlKey e.altKey e.shiftKey
+    initAutoRefresh();
   }
 
   function initPageButton() {
@@ -1508,6 +1512,12 @@
       autoupdate = parseInt(elementIndex.getAttribute('data-autoupdate'), 10);
       autoupdate = (autoupdate === 1)?true:false;
     }
+    if (elementIndex.hasAttribute('data-auto-refresh-interval')) {
+      autoRefreshInterval = parseInt(elementIndex.getAttribute('data-auto-refresh-interval'), 0);
+      if (autoRefreshInterval < 60) {
+        autoRefreshInterval = 60;
+      }
+    }
     if (elementIndex.hasAttribute('data-by-page')) {
       byPage = parseInt(elementIndex.getAttribute('data-by-page'), 10);
     }
@@ -1529,6 +1539,16 @@
 
     status = document.getElementById('status').innerHTML;
   }
+
+  // Automatically refresh the page after a configured interval 
+  // Do we need to prevent auto refresh on config page ?
+  function initAutoRefresh() {
+    if (refreshTimeout) {
+      clearTimeout(refreshTimeout);
+    }
+    refreshTimeout = setTimeout(function () { 
+      location.reload();
+    }, autoRefreshInterval * 1000);  }
 
   function initKF() {
     var listLinkFolders = [],
@@ -1560,6 +1580,10 @@
 
     if (autoupdate) {
       initUpdate();
+    }
+
+    if (autoRefreshInterval > 0) {
+      initAutoRefresh();
     }
   }
 

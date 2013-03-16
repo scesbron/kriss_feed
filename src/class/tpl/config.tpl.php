@@ -82,6 +82,14 @@
                   </div>
 
                   <div class="control-group">
+                    <label class="control-label">Auto refresh page interval</label>
+                    <div class="controls">
+                      <input type="text" maxlength="3" id="autoRefreshInterval" name="autoRefreshInterval" value="<?php echo $kfcautorefreshinterval; ?>">
+                      <p class="help-block">Set interval to 0 if you don't want auto refresh, minimum value is 60s, recommended value is cron job interval</p>
+                    </div>
+                  </div>
+
+                  <div class="control-group">
                     <label class="control-label">Auto read next item option</label>
                     <div class="controls">
                       <label for="donotautoreaditem">
